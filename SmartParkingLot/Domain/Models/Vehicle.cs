@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using SmartParkingLot.Domain.Enums;
 
 namespace SmartParkingLot.Domain.Models
