@@ -10,7 +10,7 @@ namespace SmartParkingLot.Domain.Models
         /// </summary>
         public override VehicleType Type => VehicleType.Motorcycle;
 
-        public Motorcycle (string licensePlate) : base(licensePlate)
+        public Motorcycle (string licensePlate,DateTime? entryTime=null) : base(licensePlate,entryTime)
         {
         }
     }

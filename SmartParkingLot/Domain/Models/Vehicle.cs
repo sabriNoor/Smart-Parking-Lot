@@ -13,10 +13,10 @@ namespace SmartParkingLot.Domain.Models
         /// </summary>
         public abstract VehicleType Type { get; }
 
-        public Vehicle(string licensePlate)
+        public Vehicle(string licensePlate, DateTime? entryTime=null)
         {
             LicensePlate = licensePlate;
-            EntryTime = DateTime.Now;
+            EntryTime = entryTime?? DateTime.Now;
         }
 
         public override string ToString()
