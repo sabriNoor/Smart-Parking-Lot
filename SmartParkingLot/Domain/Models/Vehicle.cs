@@ -13,11 +13,6 @@ namespace SmartParkingLot.Domain.Models
         /// </summary>
         public abstract VehicleType Type { get; }
 
-        public Vehicle()
-        {
-            EntryTime = DateTime.Now;
-        }
-
         public Vehicle(string licensePlate)
         {
             LicensePlate = licensePlate;
