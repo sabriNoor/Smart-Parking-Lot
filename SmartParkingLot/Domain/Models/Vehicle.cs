@@ -4,7 +4,7 @@ namespace SmartParkingLot.Domain.Models
 {
     public abstract class Vehicle
     {
-        public required string LicensePlate { get; set; }
+        public string LicensePlate { get; set; }
         public DateTime EntryTime { get; set; }
         /// <summary>
         /// Represents the type of vehicle.
