@@ -2,7 +2,7 @@ using SmartParkingLot.Domain.Enums;
 
 namespace SmartParkingLot.Domain.Models
 {
-    abstract class Vehicle
+    public abstract class Vehicle
     {
         public required string LicensePlate { get; set; }
         public DateTime EntryTime { get; set; }

@@ -2,7 +2,7 @@ using SmartParkingLot.Domain.Enums;
 
 namespace SmartParkingLot.Domain.Models
 {
-    class Motorcycle : Vehicle
+    public class Motorcycle : Vehicle
     {
         /// <summary>
         /// Represents the type of vehicle.
