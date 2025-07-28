@@ -12,17 +12,17 @@ namespace SmartParkingLot.Domain.Exceptions
         /// </summary>
         public OperationType? Operation { get; }
 
-        public ParkingLotException(OperationType? operation)
+        public ParkingLotException(OperationType? operation=null)
         : base()
         {
             Operation = operation;
         }
-        public ParkingLotException(string message, OperationType? operation)
+        public ParkingLotException(string message, OperationType? operation=null)
         : base(message)
         {
             Operation = operation;
         }
-        public ParkingLotException(string message, Exception innerException, OperationType? operation)
+        public ParkingLotException(string message, Exception innerException, OperationType? operation=null)
         : base(message, innerException)
         {
             Operation = operation;
