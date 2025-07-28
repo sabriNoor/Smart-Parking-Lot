@@ -74,5 +74,33 @@ namespace SmartParkingLot.Core.Services
             }
         }
 
+        public bool CheckOut(string licensePlate)
+        {
+            try
+            {
+                Vehicle vehicle = GetVehicle(licensePlate);
+                vehicles.Remove(vehicle);
+                _logger.LogInformation($"Vehicle with license plate {licensePlate} checked out successfully at {DateTime.Now}.");
+                return true;
+            }
+            catch (ParkingLotException ex)
+            {
+                _logger.LogWarning(ex, "Check-out failed due to vehicle not found.");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred during check-out.");
+                return false;
+            }
+        }
+
+        private Vehicle GetVehicle(string licensePlate)
+        {
+            Vehicle? vehicle = vehicles.FirstOrDefault(v => v.LicensePlate == licensePlate);
+            
+            return vehicle ?? throw new ParkingLotException("Vehicle not found.", OperationType.CheckOut); ;
+        }
+
     }
 }

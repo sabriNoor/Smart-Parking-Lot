@@ -5,7 +5,8 @@ namespace SmartParkingLot.Domain.Interfaces
 {
     public interface IParkingLotManager
     {
-        public bool CheckIn(string licensePlate,VehicleType vehicleType);
+        bool CheckIn(string licensePlate, VehicleType vehicleType);
+        bool CheckOut(string licensePlate);
         
     }
     
