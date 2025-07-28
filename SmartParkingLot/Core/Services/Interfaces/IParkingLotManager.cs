@@ -1,12 +1,11 @@
 using SmartParkingLot.Domain.Enums;
-using SmartParkingLot.Domain.Models;
 
-namespace SmartParkingLot.Domain.Interfaces
+namespace SmartParkingLot.Core.Services.Interfaces
 {
     public interface IParkingLotManager
     {
         bool CheckIn(string licensePlate, VehicleType vehicleType);
-        bool CheckOut(string licensePlate);
+        (bool success, decimal? fees) CheckOut(string licensePlate);
         
     }
     

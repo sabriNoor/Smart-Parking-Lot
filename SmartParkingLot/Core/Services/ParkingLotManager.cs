@@ -2,9 +2,9 @@ using SmartParkingLot.Core.Factories;
 using SmartParkingLot.Core.Validations;
 using SmartParkingLot.Domain.Enums;
 using SmartParkingLot.Domain.Exceptions;
-using SmartParkingLot.Domain.Interfaces;
 using SmartParkingLot.Domain.Models;
 using Microsoft.Extensions.Logging;
+using SmartParkingLot.Core.Services.Interfaces;
 
 namespace SmartParkingLot.Core.Services
 {
@@ -12,11 +12,13 @@ namespace SmartParkingLot.Core.Services
     {
         private readonly List<Vehicle> vehicles;
         private readonly ILogger<ParkingLotManager> _logger;
+        private IFeeCalculator feeCalculator;
         public int Capacity { get; set; }
 
-        public ParkingLotManager(int capacity, ILogger<ParkingLotManager> logger)
+        public ParkingLotManager(int capacity, ILogger<ParkingLotManager> logger,IFeeCalculator feeCalculator)
         {
             _logger = logger;
+            this.feeCalculator = feeCalculator;
             vehicles = new List<Vehicle>();
             Capacity = capacity;
         }
@@ -74,24 +76,25 @@ namespace SmartParkingLot.Core.Services
             }
         }
 
-        public bool CheckOut(string licensePlate)
+        public (bool success, decimal? fees) CheckOut(string licensePlate)
         {
             try
             {
                 Vehicle vehicle = GetVehicle(licensePlate);
+                decimal fees = feeCalculator.CalculateFees(vehicle);
                 vehicles.Remove(vehicle);
                 _logger.LogInformation($"Vehicle with license plate {licensePlate} checked out successfully at {DateTime.Now}.");
-                return true;
+                return (true, fees);
             }
             catch (ParkingLotException ex)
             {
                 _logger.LogWarning(ex, "Check-out failed due to vehicle not found.");
-                return false;
+                return (false, null);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred during check-out.");
-                return false;
+                return (false,null);
             }
         }
 
