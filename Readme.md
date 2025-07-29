@@ -73,6 +73,7 @@ SmartParkingLot/
 │       ├── MainMenuView.cs
 │       └── VehicleQueryView.cs
 
+```
 
 ## 🛠️ Technologies Used
 
@@ -96,15 +97,15 @@ SmartParkingLot/
 1. Clone the repository
 ```bash
 git clone https://github.com/sabriNoor/Smart-Parking-Lot.git
-
+```
 2. Navigate to the project
 ```bash
 cd Smart-Parking-Lot
-
+```
 3. Build and run
 ```bash
 dotnet run
-
+```
 
 ## 📂 Contribution
 Feel free to fork this repository and contribute by submitting a pull request.
