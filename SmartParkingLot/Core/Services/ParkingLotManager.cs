@@ -11,11 +11,12 @@ namespace SmartParkingLot.Core.Services
 {
     public class ParkingLotManager : IParkingLotManager
     {
-        public delegate void LotFullHandler<T>(object sender, EventArgs e);
         private readonly List<Vehicle> vehicles;
         private readonly ILogger<ParkingLotManager> _logger;
         private IFeeCalculator feeCalculator;
+
         public event LotFullHandler<LotFullEventArgs>? LotFull;
+
         public int Capacity { get; set; }
 
 

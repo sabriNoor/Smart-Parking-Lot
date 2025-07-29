@@ -29,6 +29,7 @@ public class Program
         IVehicleQueryMenu vehicleQueryMenu = new VehicleQueryMenu(new VehicleQueryView(parkingLotManager, loggerFactory.CreateLogger<VehicleQueryView>()), loggerFactory.CreateLogger<VehicleQueryMenu>());
         IMainMenu mainMenu = new MainMenu(mainMenuView, vehicleQueryMenu, loggerFactory.CreateLogger<MainMenu>());
         INotifiable consoleNotification = new ConsoleNotification(loggerFactory.CreateLogger<ConsoleNotification>());
+        parkingLotManager.LotFull += consoleNotification.Notify;
         mainMenu.RenderMainMenu();
 
     }
