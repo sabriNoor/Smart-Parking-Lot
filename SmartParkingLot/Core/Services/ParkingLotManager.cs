@@ -5,17 +5,21 @@ using SmartParkingLot.Domain.Exceptions;
 using SmartParkingLot.Domain.Models;
 using Microsoft.Extensions.Logging;
 using SmartParkingLot.Core.Services.Interfaces;
+using SmartParkingLot.Domain.Events;
 
 namespace SmartParkingLot.Core.Services
 {
     public class ParkingLotManager : IParkingLotManager
     {
+        public delegate void LotFullHandler<T>(object sender, EventArgs e);
         private readonly List<Vehicle> vehicles;
         private readonly ILogger<ParkingLotManager> _logger;
         private IFeeCalculator feeCalculator;
+        public event LotFullHandler<LotFullEventArgs>? LotFull;
         public int Capacity { get; set; }
 
-        public ParkingLotManager(int capacity, ILogger<ParkingLotManager> logger,IFeeCalculator feeCalculator)
+
+        public ParkingLotManager(int capacity, ILogger<ParkingLotManager> logger, IFeeCalculator feeCalculator)
         {
             _logger = logger;
             this.feeCalculator = feeCalculator;
@@ -30,8 +34,13 @@ namespace SmartParkingLot.Core.Services
                 Vehicle vehicle = CreateAndValidateVehicle(licensePlate, vehicleType);
                 EnsureCapacity();
                 vehicles.Add(vehicle);
-
+                bool isFull = vehicles.Count == Capacity;
                 _logger.LogInformation($"Vehicle with license plate {licensePlate} checked in successfully at {vehicle.EntryTime}.");
+                if (isFull)
+                {
+                    _logger.LogWarning("Parking lot is full.");
+                    OnLotFull(new LotFullEventArgs("Parking lot is full now.", DateTime.Now));
+                }
                 return true;
             }
             catch (ArgumentException ex)
@@ -76,6 +85,21 @@ namespace SmartParkingLot.Core.Services
             }
         }
 
+
+        protected void OnLotFull(LotFullEventArgs e)
+        {
+            if (LotFull == null)
+            {
+                _logger.LogWarning("No subscribers for LotFull event.");
+            }
+            else
+            {
+                _logger.LogInformation($"LotFull event triggered with message: {e.Message} at {e.Timestamp}.");
+                LotFull(this, e);
+            }
+
+        }
+
         public (bool success, decimal? fees) CheckOut(string licensePlate)
         {
             try
@@ -94,16 +118,38 @@ namespace SmartParkingLot.Core.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred during check-out.");
-                return (false,null);
+                return (false, null);
             }
         }
 
         private Vehicle GetVehicle(string licensePlate)
         {
             Vehicle? vehicle = vehicles.FirstOrDefault(v => v.LicensePlate == licensePlate);
-            
+
             return vehicle ?? throw new ParkingLotException("Vehicle not found.", OperationType.CheckOut); ;
         }
+
+        public void DisplayParkingVehicles()
+        {
+            var vehiclesCount = vehicles.Count;
+            if (vehiclesCount == 0)
+            {
+                _logger.LogInformation("Parking lot is empty.");
+                Console.WriteLine("Parking lot is empty.");
+            }
+            else
+            {
+                foreach (var vehicle in vehicles)
+                {
+                    Console.WriteLine(vehicle);
+                }
+                Console.WriteLine($"Total parked vehicles: {vehiclesCount}");
+                _logger.LogInformation("Current parking lot status displayed successfully.");
+
+            }
+        }
+
+    
 
     }
 }
