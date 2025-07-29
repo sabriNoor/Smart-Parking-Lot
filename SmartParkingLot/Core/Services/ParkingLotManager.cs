@@ -130,26 +130,6 @@ namespace SmartParkingLot.Core.Services
             return vehicle ?? throw new ParkingLotException("Vehicle not found.", OperationType.CheckOut); ;
         }
 
-        public void DisplayParkingVehicles()
-        {
-            var vehiclesCount = vehicles.Count;
-            if (vehiclesCount == 0)
-            {
-                _logger.LogInformation("Parking lot is empty.");
-                Console.WriteLine("Parking lot is empty.");
-            }
-            else
-            {
-                foreach (var vehicle in vehicles)
-                {
-                    Console.WriteLine(vehicle);
-                }
-                Console.WriteLine($"Total parked vehicles: {vehiclesCount}");
-                _logger.LogInformation("Current parking lot status displayed successfully.");
-
-            }
-        }
-
         public bool FilterAndDisplayVehicles<T>(VehicleQueryOption vehicleQueryOption, T? value = default)
         {
             try
