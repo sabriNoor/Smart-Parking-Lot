@@ -16,8 +16,9 @@ A modular and maintainable Smart Parking Lot Management System built with clean 
 ## 🧱 Project Structure
 
 ```plaintext
+
 Program.cs
-│
+
 SmartParkingLot/
 │
 ├── Core/
@@ -72,6 +73,7 @@ SmartParkingLot/
 │       ├── MainMenuView.cs
 │       └── VehicleQueryView.cs
 
+
 ## 🛠️ Technologies Used
 
 - .NET / C#
@@ -82,10 +84,12 @@ SmartParkingLot/
 - Domain-Driven Design
 - Clean Architecture
 
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 - .NET SDK (version 6.0 or higher)
+
 
 ### Installation
 
@@ -100,6 +104,7 @@ cd Smart-Parking-Lot
 3. Build and run
 ```bash
 dotnet run
+
 
 ## 📂 Contribution
 Feel free to fork this repository and contribute by submitting a pull request.
