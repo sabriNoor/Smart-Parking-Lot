@@ -6,6 +6,8 @@ namespace SmartParkingLot.Core.Services.Interfaces
     {
         bool CheckIn(string licensePlate, VehicleType vehicleType);
         (bool success, decimal? fees) CheckOut(string licensePlate);
+
+        bool FilterAndDisplayVehicles<T>(VehicleQueryOption vehicleQueryOption,T? value= default);
         
     }
     

@@ -149,7 +149,69 @@ namespace SmartParkingLot.Core.Services
             }
         }
 
-    
+        public bool FilterAndDisplayVehicles<T>(VehicleQueryOption vehicleQueryOption, T? value = default)
+        {
+            try
+            {
+                List<Vehicle> vehiclesResults = ApplyVehicleQuery(vehicleQueryOption, value);
+                return DisplayVehicles(vehicleQueryOption, vehiclesResults);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while displaying filtered vehicles.");
+                return false;
+            }
+        }
+
+        private List<Vehicle> ApplyVehicleQuery<T>(VehicleQueryOption vehicleQueryOption, T? value)
+        {
+            
+            return vehicleQueryOption switch
+            {
+                VehicleQueryOption.ByType => value is not null && value is VehicleType vt
+                    ? GetVehiclesByType(vehicles, vt)
+                    : throw new ArgumentException("Value for ByType filter must be a non-null VehicleType."),
+                VehicleQueryOption.ByLicensePlate => value is not null
+                    ? GetVehiclesByLicensePlate(vehicles, value.ToString()!)
+                    : throw new ArgumentException("Value for ByLicensePlate filter must be non-null."),
+                VehicleQueryOption.ByEntryTime => GetVehiclesSortedByEntryTime(vehicles),
+                VehicleQueryOption.All => vehicles,
+                _ => throw new ArgumentException("Invalid filter criteria.")
+            };
+        }
+
+        private static List<Vehicle> GetVehiclesByType (List<Vehicle> vehicles,VehicleType vehicleType)
+        {
+            return [.. vehicles.Where(v => v.Type == vehicleType)];
+            
+        }
+
+        private static List<Vehicle> GetVehiclesByLicensePlate (List<Vehicle> vehicles,string licensePlate)
+        {
+            return [.. vehicles.Where(v => v.LicensePlate == licensePlate)];
+            
+        }
+        private static List<Vehicle> GetVehiclesSortedByEntryTime(List<Vehicle> vehicles)
+        {
+            return [.. vehicles.OrderBy(v => v.EntryTime)];
+        }
+
+       
+        private bool DisplayVehicles(VehicleQueryOption vehicleQueryOption, List<Vehicle> vehiclesResults)
+        {
+            if (vehiclesResults.Count == 0)
+            {
+                _logger.LogInformation($"No vehicles found for criteria: {vehicleQueryOption}.");
+                Console.WriteLine($"No vehicles found for criteria: {vehicleQueryOption}.");
+            }
+            foreach (var vehicle in vehiclesResults)
+            {
+                Console.WriteLine(vehicle);
+            }
+            _logger.LogInformation($"Filtered vehicles displayed successfully for criteria: {vehicleQueryOption}.");
+            Console.WriteLine($"Total vehicles found: {vehiclesResults.Count}");
+            return true;
+        }
 
     }
 }
