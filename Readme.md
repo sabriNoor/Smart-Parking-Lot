@@ -17,12 +17,12 @@ A modular and maintainable Smart Parking Lot Management System built with clean 
 
 ```plaintext
 
-Program.cs
-
-├── docs/
-│   └── uml/
+docs/
+│  └── uml/
 │       └── parkinglot_uml.png
 SmartParkingLot/
+│
+├── Program.cs
 │
 ├── Core/
 │   ├── Factories/
@@ -110,7 +110,7 @@ git clone https://github.com/sabriNoor/Smart-Parking-Lot.git
 ```
 2. Navigate to the project
 ```bash
-cd Smart-Parking-Lot
+cd Smart-Parking-Lot/SmartParkingLot
 ```
 3. Build and run
 ```bash
