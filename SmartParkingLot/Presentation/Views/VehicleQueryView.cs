@@ -26,7 +26,15 @@ namespace SmartParkingLot.Presentation.Views
                 Console.WriteLine(vehicleTypeResult.ErrorMessage);
                 return;
             }
-            _parkingLotManager.FilterAndDisplayVehicles(VehicleQueryOption.ByType,type);
+            var success = _parkingLotManager.FilterAndDisplayVehicles(VehicleQueryOption.ByType, type);
+            if(!success)
+            {
+                Console.WriteLine($"No vehicles found of type {type}.");
+            }
+            else
+            {
+                Console.WriteLine($"Vehicles of type {type} displayed successfully.");
+            }
            
         }
 
@@ -38,20 +46,44 @@ namespace SmartParkingLot.Presentation.Views
                 Console.WriteLine(licensePlateResult.ErrorMessage);
                 return;
             }
-             _parkingLotManager.FilterAndDisplayVehicles(VehicleQueryOption.ByLicensePlate,licensePlate ?? string.Empty);
+            var success = _parkingLotManager.FilterAndDisplayVehicles(VehicleQueryOption.ByLicensePlate, licensePlate ?? string.Empty);
+            if (!success)
+            {
+                Console.WriteLine($"No vehicles found with license plate {licensePlate}.");
+            }
+            else
+            {
+                Console.WriteLine($"Vehicles with license plate {licensePlate} displayed successfully.");
+            }
 
         }
 
         public void RenderVehiclesByEntryTime()
         {
-            _parkingLotManager.FilterAndDisplayVehicles<object>(VehicleQueryOption.ByEntryTime);
+            var success = _parkingLotManager.FilterAndDisplayVehicles<object>(VehicleQueryOption.ByEntryTime);
+            if (!success)
+            {
+                Console.WriteLine("No vehicles found to display sorted by entry time.");
+            }
+            else
+            {
+                Console.WriteLine("Vehicles sorted by entry time displayed successfully.");
+            }
 
         }
 
 
         public void RenderAllVehicles()
         {
-            _parkingLotManager.FilterAndDisplayVehicles<object>(VehicleQueryOption.All);
+            var success = _parkingLotManager.FilterAndDisplayVehicles<object>(VehicleQueryOption.All);
+            if (!success)
+            {
+                Console.WriteLine("No vehicles found to display.");
+            }
+            else
+            {
+                Console.WriteLine("All vehicles displayed successfully.");
+            }
 
         }
     }
