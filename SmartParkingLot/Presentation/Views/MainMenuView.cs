@@ -31,8 +31,15 @@ namespace SmartParkingLot.Presentation.Views
                 Console.WriteLine(vehicleTypeResult.ErrorMessage);
                 return;
             }
-
-            _parkingLotManager.CheckIn(licensePlate ?? string.Empty, type);
+            var success = _parkingLotManager.CheckIn(licensePlate ?? string.Empty, type);
+            if (success)
+            {
+                Console.WriteLine($"Vehicle with license plate {licensePlate} checked in successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"Check-in failed for vehicle with license plate {licensePlate}.");
+            }
         }
 
         public void RenderCheckOut()
