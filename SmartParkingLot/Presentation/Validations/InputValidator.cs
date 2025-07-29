@@ -49,6 +49,16 @@ namespace SmartParkingLot.Presentation.Validations
             }
             return ValidationResult<VehicleQueryMenuOptions>.Success((VehicleQueryMenuOptions)option);
         }
+
+        public static ValidationResult<int> ReadPositiveInt(string prompt)
+        {
+            Console.Write($"{prompt}");
+            if (!int.TryParse(Console.ReadLine(), out int value) || value <= 0)
+            {
+                return ValidationResult<int>.Failure("Invalid input. Please enter a positive integer.");
+            }
+            return ValidationResult<int>.Success(value);
+        }
        
     }
 }

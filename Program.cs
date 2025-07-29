@@ -6,20 +6,25 @@ using SmartParkingLot.Core.Services.Interfaces;
 using SmartParkingLot.Core.Services;
 using SmartParkingLot.Domain.Interfaces;
 using SmartParkingLot.Presentation.Menus;
+using SmartParkingLot.Presentation.Validations;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        using ILoggerFactory loggerFactory = CreateLoggerFactory();
+        ILoggerFactory loggerFactory = CreateLoggerFactory();
 
         var logger = loggerFactory.CreateLogger<Program>();
 
         logger.LogInformation("Application started.");
+        Console.WriteLine("Welcome to the Smart Parking Lot System!");
 
+        int capacity = GetCapacity();
+
+        logger.LogInformation("Initializing services and views...");
         IRateProvider rateProvider = new RateProvider(loggerFactory.CreateLogger<RateProvider>());
         IFeeCalculator feeCalculator = new FeeCalculator(rateProvider);
-        IParkingLotManager parkingLotManager = new ParkingLotManager(10, loggerFactory.CreateLogger<ParkingLotManager>(), feeCalculator);
+        IParkingLotManager parkingLotManager = new ParkingLotManager(capacity, loggerFactory.CreateLogger<ParkingLotManager>(), feeCalculator);
         IMainMenuView mainMenuView = new MainMenuView(parkingLotManager, loggerFactory.CreateLogger<MainMenuView>());
         IVehicleQueryMenu vehicleQueryMenu = new VehicleQueryMenu(new VehicleQueryView(parkingLotManager, loggerFactory.CreateLogger<VehicleQueryView>()), loggerFactory.CreateLogger<VehicleQueryMenu>());
         IMainMenu mainMenu = new MainMenu(mainMenuView, vehicleQueryMenu, loggerFactory.CreateLogger<MainMenu>());
@@ -27,6 +32,19 @@ public class Program
         mainMenu.RenderMainMenu();
 
     }
+
+    private static int GetCapacity()
+    {
+        while (true)
+        {
+            var result = InputValidator.ReadPositiveInt("Please enter the parking lot capacity: ");
+            if (ValidationResult<int>.CheckValidation(result, out int capacity))
+            {
+                return capacity;
+            }
+        }
+    }
+
 
     private static ILoggerFactory CreateLoggerFactory()
     {
