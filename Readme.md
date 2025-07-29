@@ -19,6 +19,9 @@ A modular and maintainable Smart Parking Lot Management System built with clean 
 
 Program.cs
 
+├── docs/
+│   └── uml/
+│       └── parkinglot_uml.png
 SmartParkingLot/
 │
 ├── Core/
@@ -74,6 +77,13 @@ SmartParkingLot/
 │       └── VehicleQueryView.cs
 
 ```
+
+## 📊 UML Diagram
+
+Below is the UML class diagram demonstrating core system relationships:
+
+![Parking Lot UML Diagram](docs/uml/parkinglot_uml.png)
+
 
 ## 🛠️ Technologies Used
 
