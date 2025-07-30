@@ -8,30 +8,40 @@ using SmartParkingLot.Domain.Interfaces;
 using SmartParkingLot.Presentation.Menus;
 using SmartParkingLot.Presentation.Validations;
 
-namespace SmartParkingLot {
+namespace SmartParkingLot
+{
     public class Program
     {
         public static void Main(string[] args)
         {
-            ILoggerFactory loggerFactory = CreateLoggerFactory();
+            try
+            {
+                ILoggerFactory loggerFactory = CreateLoggerFactory();
 
-            var logger = loggerFactory.CreateLogger<Program>();
+                var logger = loggerFactory.CreateLogger<Program>();
 
-            logger.LogInformation("Application started.");
-            Console.WriteLine("Welcome to the Smart Parking Lot System!");
+                logger.LogInformation("Application started.");
+                Console.WriteLine("Welcome to the Smart Parking Lot System!");
 
-            int capacity = GetCapacity();
+                int capacity = GetCapacity();
 
-            logger.LogInformation("Initializing services and views...");
-            IRateProvider rateProvider = new RateProvider(loggerFactory.CreateLogger<RateProvider>());
-            IFeeCalculator feeCalculator = new FeeCalculator(rateProvider);
-            IParkingLotManager parkingLotManager = new ParkingLotManager(capacity, loggerFactory.CreateLogger<ParkingLotManager>(), feeCalculator);
-            IMainMenuView mainMenuView = new MainMenuView(parkingLotManager, loggerFactory.CreateLogger<MainMenuView>());
-            IVehicleQueryMenu vehicleQueryMenu = new VehicleQueryMenu(new VehicleQueryView(parkingLotManager, loggerFactory.CreateLogger<VehicleQueryView>()), loggerFactory.CreateLogger<VehicleQueryMenu>());
-            IMainMenu mainMenu = new MainMenu(mainMenuView, vehicleQueryMenu, loggerFactory.CreateLogger<MainMenu>());
-            INotifiable consoleNotification = new ConsoleNotification(loggerFactory.CreateLogger<ConsoleNotification>());
-            parkingLotManager.LotFull += consoleNotification.Notify;
-            mainMenu.RenderMainMenu();
+                logger.LogInformation("Initializing services and views...");
+                IRateProvider rateProvider = new RateProvider(loggerFactory.CreateLogger<RateProvider>());
+                IFeeCalculator feeCalculator = new FeeCalculator(rateProvider);
+                IParkingLotManager parkingLotManager = new ParkingLotManager(capacity, loggerFactory.CreateLogger<ParkingLotManager>(), feeCalculator);
+                IMainMenuView mainMenuView = new MainMenuView(parkingLotManager, loggerFactory.CreateLogger<MainMenuView>());
+                IVehicleQueryMenu vehicleQueryMenu = new VehicleQueryMenu(new VehicleQueryView(parkingLotManager, loggerFactory.CreateLogger<VehicleQueryView>()), loggerFactory.CreateLogger<VehicleQueryMenu>());
+                IMainMenu mainMenu = new MainMenu(mainMenuView, vehicleQueryMenu, loggerFactory.CreateLogger<MainMenu>());
+                INotifiable consoleNotification = new ConsoleNotification(loggerFactory.CreateLogger<ConsoleNotification>());
+                parkingLotManager.LotFull += consoleNotification.Notify;
+                mainMenu.RenderMainMenu();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                Log.Error(ex, "An error occurred in the Smart Parking Lot application.");
+            }
+
 
         }
 
@@ -57,10 +67,10 @@ namespace SmartParkingLot {
                     .WriteTo.File("logs/smart_parking_lot.log", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
                 var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.ClearProviders();
-                builder.AddSerilog();
-            });
+                {
+                    builder.ClearProviders();
+                    builder.AddSerilog();
+                });
                 return loggerFactory;
             }
             catch (Exception ex)
