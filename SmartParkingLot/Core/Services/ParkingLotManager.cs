@@ -13,7 +13,7 @@ namespace SmartParkingLot.Core.Services
     {
         private readonly List<Vehicle> vehicles;
         private readonly ILogger<ParkingLotManager> _logger;
-        private IFeeCalculator feeCalculator;
+        private readonly IFeeCalculator feeCalculator;
 
         public event LotFullHandler<LotFullEventArgs>? LotFull;
 
