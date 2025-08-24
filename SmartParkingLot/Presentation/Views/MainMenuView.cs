@@ -1,8 +1,7 @@
 using Microsoft.Extensions.Logging;
-using SmartParkingLot.Core.Services.Interfaces;
+using SmartParkingLot.Core.Interfaces;
 using SmartParkingLot.Domain.Enums;
-using SmartParkingLot.Presentation.Interfaces;
-using SmartParkingLot.Presentation.Validations;
+using SmartParkingLot.Core.Validations;
 
 namespace SmartParkingLot.Presentation.Views
 {

@@ -1,5 +1,4 @@
-using SmartParkingLot.Core.Services.Interfaces;
-using SmartParkingLot.Domain.Interfaces;
+using SmartParkingLot.Core.Interfaces;
 using SmartParkingLot.Domain.Models;
 
 namespace SmartParkingLot.Core.Services

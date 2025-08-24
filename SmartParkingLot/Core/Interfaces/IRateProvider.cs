@@ -1,6 +1,6 @@
 using SmartParkingLot.Domain.Enums;
 
-namespace SmartParkingLot.Domain.Interfaces
+namespace SmartParkingLot.Core.Interfaces
 {
     interface IRateProvider
     {

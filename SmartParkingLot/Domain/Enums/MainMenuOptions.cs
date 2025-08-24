@@ -1,4 +1,4 @@
-namespace SmartParkingLot.Presentation.Enums
+namespace SmartParkingLot.Domain.Enums
 {
     public enum MainMenuOptions
     {

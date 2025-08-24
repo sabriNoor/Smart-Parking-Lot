@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using SmartParkingLot.Presentation.Interfaces;
 using SmartParkingLot.Presentation.Views;
 using Serilog;
-using SmartParkingLot.Core.Services.Interfaces;
+using SmartParkingLot.Core.Interfaces;
 using SmartParkingLot.Core.Services;
-using SmartParkingLot.Domain.Interfaces;
 using SmartParkingLot.Presentation.Menus;
-using SmartParkingLot.Presentation.Validations;
+using SmartParkingLot.Core.Validations;
 
 namespace SmartParkingLot
 {

@@ -1,6 +1,6 @@
 using SmartParkingLot.Domain.Events;
 
-namespace SmartParkingLot.Core.Services.Interfaces
+namespace SmartParkingLot.Core.Interfaces
 {
     public interface INotifiable
     {

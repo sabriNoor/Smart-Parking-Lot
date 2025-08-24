@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
-using SmartParkingLot.Presentation.Enums;
-using SmartParkingLot.Presentation.Interfaces;
-using SmartParkingLot.Presentation.Validations;
+using SmartParkingLot.Domain.Enums;
+using SmartParkingLot.Core.Interfaces;
+using SmartParkingLot.Core.Validations;
 
 namespace SmartParkingLot.Presentation.Menus
 {

@@ -1,4 +1,4 @@
-namespace SmartParkingLot.Presentation.Interfaces
+namespace SmartParkingLot.Core.Interfaces
 {
     public interface IMainMenuView
     {

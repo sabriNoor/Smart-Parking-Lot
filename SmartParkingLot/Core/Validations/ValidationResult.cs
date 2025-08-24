@@ -1,4 +1,4 @@
-namespace SmartParkingLot.Presentation.Validations
+namespace SmartParkingLot.Core.Validations
 {
     public class ValidationResult<T>
     {

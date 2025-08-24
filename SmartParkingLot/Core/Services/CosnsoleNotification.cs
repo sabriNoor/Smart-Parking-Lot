@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using SmartParkingLot.Core.Services.Interfaces;
+using SmartParkingLot.Core.Interfaces;
 using SmartParkingLot.Domain.Events;
 
 namespace SmartParkingLot.Core.Services

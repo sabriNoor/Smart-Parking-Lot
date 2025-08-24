@@ -1,7 +1,7 @@
 using SmartParkingLot.Domain.Enums;
 using SmartParkingLot.Domain.Events;
 
-namespace SmartParkingLot.Core.Services.Interfaces
+namespace SmartParkingLot.Core.Interfaces
 {
     public interface IParkingLotManager
     {

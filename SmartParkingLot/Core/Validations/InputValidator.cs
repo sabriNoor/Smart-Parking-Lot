@@ -1,7 +1,6 @@
 using SmartParkingLot.Domain.Enums;
-using SmartParkingLot.Presentation.Enums;
 
-namespace SmartParkingLot.Presentation.Validations
+namespace SmartParkingLot.Core.Validations
 {
     public class InputValidator
     {

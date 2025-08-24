@@ -1,5 +1,5 @@
 using SmartParkingLot.Domain.Enums;
-using SmartParkingLot.Domain.Interfaces;
+using SmartParkingLot.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace SmartParkingLot.Core.Services
