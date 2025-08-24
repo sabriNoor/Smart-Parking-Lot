@@ -17,7 +17,7 @@ namespace SmartParkingLot.Core.Services
 
         public event LotFullHandler<LotFullEventArgs>? LotFull;
 
-        public int Capacity { get; set; }
+        public int Capacity { get; private set; }
 
 
         public ParkingLotManager(int capacity, ILogger<ParkingLotManager> logger, IFeeCalculator feeCalculator)
